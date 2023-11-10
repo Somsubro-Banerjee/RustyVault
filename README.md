@@ -1,5 +1,5 @@
 # RustyVault #
-![RustyVault](icons\vault.jpg)
+![Alt text](icons/vault.jpg "Rusty Vault")
 
 The Idea behind RustyVault is to make a simple decentralised key vault to store secrets and what not!
 
