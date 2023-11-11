@@ -1,3 +1,5 @@
+use std::sync::Mutex;
+
 use crate::{
     api::{routes::{data_models::NewVault, state::AppState}, services::docs::docs},
     node::node::Node,
@@ -87,4 +89,9 @@ async fn new_vault(
     }
 }
 
+// #[get("/api/v1/vault/list")]
+// async fn list_vault(app_state: AppState) -> impl Responder {
+//    let vaults = app_state.vaults.lock().unwrap();
+//    HttpResponse::Ok().json(vaults.clone())
+// }
 

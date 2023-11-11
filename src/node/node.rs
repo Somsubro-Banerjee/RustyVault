@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use uuid::Uuid;
 /// Define the structure of each node:
 /// Each node will have one ID for it's identificaiton and one for storing the Data.
-#[derive(Debug, serde::Deserialize, serde::Serialize)]
+#[derive(Debug, serde::Deserialize, serde::Serialize, Clone)]
 pub struct Node {
     pub name: String,
     pub id: String,

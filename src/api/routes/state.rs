@@ -11,3 +11,4 @@ impl AppState {
         AppState { vaults: Mutex::new(Vec::new()) }
     }
 }
+
