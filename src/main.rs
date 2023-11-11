@@ -1,18 +1,18 @@
+pub mod api;
 pub mod node;
-use node::node::Node;
-fn main() {
-    println!("Hello world!!");
-    let mut vault = Node::new();
-    vault.store("Hello".to_string(), "Somsubro".to_string());
-    vault.store("Hello".to_string(), "Banerjee".to_string());
-    vault.store("Password".to_string(), "SuperSecretPassword".to_string());
-    vault.store("Login ID".to_string(), "EmailID".to_string());
-    vault.store("email_id".to_string(), "ABCD@Gmail.com".to_string());
+use crate::api::routes::api_routes::{api_docs, new_vault, startup};
+use actix_web::{App, HttpServer};
 
-    let replica_set = unsafe { vault.replicate(3) };
-
-    for instance in replica_set {
-        println!("{:#?}", instance.id)
-    }
-
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    println!("RustyVault is listening on 'http://127.0.0.1:8080'");
+    HttpServer::new(|| {
+        App::new()
+            .service(startup)
+            .service(api_docs)
+            .service(new_vault)
+    })
+    .bind(("127.0.0.1", 8080))?
+    .run()
+    .await
 }

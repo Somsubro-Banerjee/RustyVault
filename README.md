@@ -3,6 +3,14 @@
 
 The Idea behind RustyVault is to make a simple decentralized key vault to store secrets and whatnot!
 
+## How to build the project ? ##
+- clone repo
+- open terminal.
+- run `cargo build -r` and then
+- run `cargo run -r`
+
+If you want to browse the documentation please run: `cargo doc --no-deps --open`, This will openup interactive documentation.
+
 ## Note! ##
 This project is still in development, so please be aware that it may contain bugs or unfinished features. The decentralization logic is added but yet needs to improve and make a way to be accessible from the web.
 
