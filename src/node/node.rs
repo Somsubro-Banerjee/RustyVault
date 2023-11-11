@@ -70,7 +70,6 @@ impl Node {
         return format!("Created Entry with key: {} and value: {:?}", &key, self.data.get(&key))
     }
 
-
     /// function `update()` updates an existing entry in the hashmap with the provided `key`
     /// ```
     /// pub fn update(&mut self, key: String, new_value: String) -> Option<&String>{
@@ -102,7 +101,6 @@ impl Node {
     pub fn retrieve(&self, key: String) -> Option<&String> {
         return self.data.get(&key);
     }
-
 
     /// function `replicate()` creates a new instance of the Nodes to make it available parallely <br>
     /// The function returns a vector of Nodes which are basically new instances.

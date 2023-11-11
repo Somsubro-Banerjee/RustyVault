@@ -1,5 +1,5 @@
 use crate::{
-    api::{routes::data_models::NewVault, services::docs::docs},
+    api::{routes::{data_models::NewVault, state::AppState}, services::docs::docs},
     node::node::Node,
 };
 use actix_web::{get, post, web, HttpResponse, Responder};
@@ -38,7 +38,7 @@ async fn api_docs() -> impl Responder {
 /// Then used pattern matching to return the list of replicas or an error.
 /// ```
 /// #[post("/api/v1/vault/create")]
-/// async fn new_vault(body: web::Json<NewVault>) -> impl Responder {
+/// async fn new_vault(body: web::Json<NewVault>, app_state: web::Data<AppState>) -> impl Responder {
 ///    // Attempt to create a new vault
 ///    let vault = Node::new(body.name.clone());
 ///    let mut replicas: Vec<Node> = Vec::new();
@@ -50,6 +50,8 @@ async fn api_docs() -> impl Responder {
 ///                    replicas = vault.replicate(body.replicas);
 ///                }
 ///            }
+///             // Add the new vault to the list
+///             app_state.vaults.lock().unwrap().push(vault);
 ///            // Respond with a success message
 ///            HttpResponse::Created().json(replicas)
 ///        }
@@ -59,7 +61,10 @@ async fn api_docs() -> impl Responder {
 /// }
 /// ```
 #[post("/api/v1/vault/create")]
-async fn new_vault(body: web::Json<NewVault>) -> impl Responder {
+async fn new_vault(
+    body: web::Json<NewVault>,
+    app_state: web::Data<AppState>, // Access application state
+) -> impl Responder {
     // Attempt to create a new vault
     let vault = Node::new(body.name.clone());
     let mut replicas: Vec<Node> = Vec::new();
@@ -71,10 +76,15 @@ async fn new_vault(body: web::Json<NewVault>) -> impl Responder {
                     replicas = vault.replicate(body.replicas);
                 }
             }
+            // Add the new vault to the list
+            app_state.vaults.lock().unwrap().push(vault);
+
             // Respond with a success message
             HttpResponse::Created().json(replicas)
         }
-        //in case of error respond with Internal Server Error.
+        // in case of error respond with Internal Server Error.
         Err(_) => HttpResponse::InternalServerError().json("Internal Server error"),
     }
 }
+
+

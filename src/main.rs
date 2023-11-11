@@ -1,13 +1,17 @@
 pub mod api;
 pub mod node;
 use crate::api::routes::api_routes::{api_docs, new_vault, startup};
-use actix_web::{App, HttpServer};
+use crate::api::routes::state::{self, AppState};
+use actix_web::{App, HttpServer, web};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let app_state = web::Data::new(AppState::new());
+
     println!("RustyVault is listening on 'http://127.0.0.1:8080'");
-    HttpServer::new(|| {
+    HttpServer::new(move || {
         App::new()
+        .app_data(app_state.clone())
             .service(startup)
             .service(api_docs)
             .service(new_vault)
