@@ -51,6 +51,10 @@ async fn api_docs() -> impl Responder {
 ///            }
 ///             // Add the new vault to the list
 ///             app_state.vaults.lock().unwrap().push(vault);
+///             // Add the replicas to the list.
+///             for i in &replicas {
+///                 app_state.replicas.lock().unwrap().push(i.clone());
+///            }
 ///            // Respond with a success message
 ///            HttpResponse::Created().json(replicas)
 ///        }
@@ -128,6 +132,29 @@ async fn list_vault(app_state: web::Data<AppState>) -> impl Responder {
         }
     }
 }
+
+/// This route call get all the replicas of the Vaults from the AppState.
+/// 
+/// ## Working ##
+/// AppState is Mutex and we need to lock into to get its data using `app_state.replicas.lock()`
+/// then using Pattern matching to 
+/// 
+/// ```
+/// #[get("/api/v1/vault/replicas")]
+/// async fn get_replicas(app_state: web::Data<AppState>) -> impl Responder {
+///     match app_state.replicas.lock() {
+///         Ok(replicas) => {
+///             // Successfully locked the mutex, respond with the list of vaults
+///             let replica_list: Vec<Node> = replicas.clone(); // Clone the inner data
+///             HttpResponse::Ok().json(replica_list)
+///         }
+///         Err(poisoned) => {
+///             // Mutex is poisoned (another thread panicked while holding the lock)
+///             HttpResponse::InternalServerError().json(format!("Mutex is poisoned: {:?}", poisoned))
+///         }
+///     }
+/// }
+/// ```
 
 #[get("/api/v1/vault/replicas")]
 async fn get_replicas(app_state: web::Data<AppState>) -> impl Responder {
