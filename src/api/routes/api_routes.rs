@@ -155,7 +155,6 @@ async fn list_vault(app_state: web::Data<AppState>) -> impl Responder {
 ///     }
 /// }
 /// ```
-
 #[get("/api/v1/vault/replicas")]
 async fn get_replicas(app_state: web::Data<AppState>) -> impl Responder {
     match app_state.replicas.lock() {
