@@ -14,8 +14,8 @@ pub fn docs() -> String{
     3) GET : '/api/v1/health'.
         use '/api/v1/health' to monitor health of the application.
 
-    4) POST : '/api/v1/vault'.
-        use the '/api/v1/vault' to create a new vault.
+    4) POST : '/api/v1/vault/create'.
+        use the '/api/v1/vault/create' to create a new vault.
         Body : name, replicas (pass as a raw json body).    
     ".to_string();
 }

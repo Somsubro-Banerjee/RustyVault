@@ -140,7 +140,7 @@ impl Node {
         for _ in 0..instance {
             let replicated_node = Node {
                 name: self.name.clone(),
-                id: Uuid::new_v4().to_string(),
+                id: self.id.clone(),
                 data: self.data.clone(),
                 status: true
             };
