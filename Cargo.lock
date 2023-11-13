@@ -667,6 +667,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "json"
+version = "0.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "078e285eafdfb6c4b434e0d31e8cfcb5115b651496faca5749b88fafd4f23bfd"
+
+[[package]]
+name = "json-rust"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ff734fe553d330269c2950c1ae94ef90ae1fe0c289c7253e978c2b63519c8d28"
+
+[[package]]
 name = "language-tags"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -941,7 +953,10 @@ version = "0.1.0"
 dependencies = [
  "actix-web",
  "futures",
+ "json",
+ "json-rust",
  "serde",
+ "serde_json",
  "sha256",
  "tokio",
  "uuid",
