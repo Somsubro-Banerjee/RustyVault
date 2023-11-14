@@ -1,7 +1,7 @@
 use std::string::String;
 
 /// We write the docs here to be returned when `/api/v1/docs` is hit.
-pub fn docs() -> String{
+pub fn docs() -> String {
     return "
     Welcome to RustyVault Docs! minimal documentation:
 
@@ -17,5 +17,6 @@ pub fn docs() -> String{
     4) POST : '/api/v1/vault/create'.
         use the '/api/v1/vault/create' to create a new vault.
         Body : name, replicas (pass as a raw json body).    
-    ".to_string();
+    "
+    .to_string();
 }
